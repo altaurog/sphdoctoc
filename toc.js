@@ -49,7 +49,8 @@ $(document).scroll(function() {
 });
 
 
-$(".sphinxsidebarwrapper").append('<h3>Contents</h3><div id="toc-hack"><ul/></div>');
+// $(".sphinxsidebarwrapper").append('<h3>Contents</h3><div id="toc-hack"><ul/></div>');
+var page_toc = [];
 $("img.inheritance").width(580);
 $("tt.descname").each(
     function(i){
@@ -63,9 +64,25 @@ $("tt.descname").each(
         var myclass = t.closest("dl").attr("class");
         var entry   = '<li class="' + myclass + '">' 
                         + '<a href="#' + id +'">' + myname  + '</a></li>'
-        $("#toc-hack > ul").append(entry);
+        // $("#toc-hack > ul").append(entry);
+        page_toc.push([myclass, id, myname]);
         if (0 == t.prevAll().length)
             t.before('<tt class="descclassname">' + 
                         myname.replace(t.text(),'') + '</tt>');
     }
 )
+console.log("content script: " + page_toc.length);
+chrome.extension.sendRequest({'data': page_toc}, function(response){
+    console.log("got response: ");
+});
+
+console.log("content script.");
+chrome.extension.onRequest.addListener(
+    function onExtRequest(request, sender, sendResponse) {
+        console.log(request);
+        if (request.action == "navigate") {
+            location.hash = "#" + request.id;
+            sendResponse([]);
+        }
+    }
+);

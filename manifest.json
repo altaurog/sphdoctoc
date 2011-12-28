@@ -3,11 +3,17 @@
   "version": "0.1",
   "description": "Page TOC for sphinx-generated documentation",
   "icons": { "16": "toc.jpg" },
-  "content_security_policy": "default-src 'self' ",
   "content_scripts": [
     {
         "matches":["http://matplotlib.sourceforge.net/*"],
         "js": ["jquery-1.7.1.min.js", "toc.js"]
     }
-  ]
+  ],
+  "permissions":["tabs","http://*"],
+  "background_page":"bg.html",
+  "page_action": {
+    "default_icon": "toc.png",
+    "default_title": "TOC",
+    "default_popup": "popup.html"
+  }
 }

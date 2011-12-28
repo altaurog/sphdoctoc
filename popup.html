@@ -1,0 +1,21 @@
+<ul>
+<script>
+function click(entry) {
+    chrome.tabs.getSelected(null, function(tab) {
+        chrome.tabs.sendRequest(tab.id, {action:'navigate', id:entry});
+        window.close();
+    });
+}
+chrome.extension.sendRequest({'action':'get_toc'},
+    function(response) {
+        var data = response.data;
+        for (i=0; i < data.length; i++) {
+            var rec = data[i];
+            var entry   = '<li class="' + rec[0] + '">'
+                            + '<a onclick="click(\'' + rec[1] + '\')" ' 
+                            + 'href="' + rec[1] +'">' + rec[2]  + '</a></li>';
+            document.write(entry);
+        }
+    });
+</script>
+</ul>

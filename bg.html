@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--
+ * Copyright (c) 2010 The Chromium Authors. All rights reserved.  Use of this
+ * source code is governed by a BSD-style license that can be found in the
+ * LICENSE file.
+-->
+<html>
+  <head>
+    <script>
+        var ext = {};
+      function onRequest(request, sender, sendResponse) {
+          if (sender.tab && request.data) {
+              console.log('ext: tab');
+              ext.data = request.data;
+              ext.tab = sender.tab;
+              if (ext.data.length > 0) {
+                  chrome.pageAction.show(sender.tab.id);
+              }
+              else
+                  chrome.pageAction.hide(sender.tab.id);
+              sendResponse({});
+          }
+          if (!sender.tab && request.action == "get_toc") {
+              console.log('ext: popup');
+              sendResponse(ext);
+          }
+      };
+
+      // Listen for the content script to send a message to the background page.
+      chrome.extension.onRequest.addListener(onRequest);
+    </script>
+  </head>
+</html>
