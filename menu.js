@@ -1,42 +1,26 @@
 function makeMenu(response) {
-    var data = response.data;
-    console.log(data.length);
-    var contextstack = [{klass:['top','top','top'], content:[]}];
-    for (i=0; i < data.length; i++) {
-        var rec = data[i];
-        if (rec[0].match(/method|attribute/)) {
-            contextstack[0].content.push(rec)
-        }
-        else if (rec[0] == 'class') {
-            var current = contextstack[0].klass[1];
-            var newcontext = {klass:rec, content:[]}
-            while (!(current == 'top' || rec[1].match(current + '\.'))) {
-                console.log('-'+ current + ", " + rec[1]);
-                contextstack.shift();
-                current = contextstack[0].klass[1];
-            }
-            console.log('>'+ current + ", " + rec[1]);
-            contextstack[0].content.push(newcontext);
-            contextstack.unshift(newcontext);
-        }
-    }
+    var toc = response.toc;
     var output = $('ul#menu');
-    var topcontent = contextstack[contextstack.length - 1].content;
-    for (var i = 0; i < topcontent.length; i++)
-        moduleList(output, topcontent[i]);
+    if (toc.length == 1)
+        toc = toc[0].contents;
+    for (var i = 0; i < toc.length; i++)
+        moduleList(output, toc[i]);
     output.treeview({persist:'cookie',collapsed:true,unique:false,animated:'fast',control:'#treecontrol'});
 }
 
 function moduleList(elem, context) {
-    if (context.klass) {
-        var li = $('<li><a class="' + context.klass[0] + '" href="#" id="' + context.klass[1] + '">' + context.klass[2] + '</a></li>');
-        li.appendTo(elem);
+    var parts = context.name.split('.');
+    var name = parts.slice(parts.length - 2).join('.');
+    if (context.what.match(/method|function/))
+        name += '()';
+    var title = context.name + ' (' + context.what + ')';
+    var li = $('<li><a class="' + context.what + '" href="#" '
+            + 'title="' + title + '" '
+            + 'id="' + context.id + '">' + name + '</a></li>');
+    li.appendTo(elem);
+    if (context.contents.length > 0) {
         var sublist = $('<ul>').appendTo(li);
-        for (var i = 0; i < context.content.length; i++)
-            moduleList(sublist, context.content[i]);
-    }
-    else {
-        var li = $('<li><a class="' + context[0] + '" href="#" id="' + context[1] + '">' + context[2] + '</a></li>');
-        li.appendTo(elem);
+        for (var i = 0; i < context.contents.length; i++)
+            moduleList(sublist, context.contents[i]);
     }
 }

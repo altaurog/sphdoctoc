@@ -9,11 +9,10 @@
     <script>
         var ext = {};
       function onRequest(request, sender, sendResponse) {
-          if (sender.tab && request.data) {
-              console.log('ext: tab');
-              ext.data = request.data;
+          if (sender.tab && request.toc) {
+              ext.toc = request.toc;
               ext.tab = sender.tab;
-              if (ext.data.length > 0) {
+              if (ext.toc.length > 0) {
                   chrome.pageAction.show(sender.tab.id);
               }
               else
@@ -21,7 +20,6 @@
               sendResponse({});
           }
           if (!sender.tab && request.action == "get_toc") {
-              console.log('ext: popup');
               sendResponse(ext);
           }
       };

@@ -1,0 +1,18 @@
+#placemark-hack {
+    display:block;
+    background:#555;
+    color:white;
+    border:1px solid black;
+    text-align:right;
+    position:fixed;
+    top:2px;
+    right:2px;
+    font-family:Arial;
+    font-weight:bold;
+    font-size:8pt;
+    height:2em;
+}
+
+#placemark-hack:hover {
+    display:none;
+}

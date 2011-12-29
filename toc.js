@@ -1,18 +1,3 @@
-$("body").append('<div id="placemark-hack"/>');
-$("#placemark-hack").css({
-    'background':'#555',
-    'color':'white',
-    'border':'1px solid black',
-    'text-align':'right',
-    'position':'fixed',
-    'top':'2px',
-    'right':'2px',
-    'font-family':'Arial',
-    'font-weight':'bold',
-    'font-size':'8pt',
-    'height':'2em'
-});
-
 (function( $ ){
     $.fn.binsearch = function(target, cmp) {  
         var lo = 0;
@@ -41,48 +26,53 @@ function compare(jqe, target) {
     return 0;
 }
 
-$(document).scroll(function() {
-    var cutoff = $(window).scrollTop() + 20;
-    var name = $("dl").binsearch(cutoff, compare).find("dt").attr("id");
-    if (name)
-        $("#placemark-hack").text(name);
-});
-
-
-// $(".sphinxsidebarwrapper").append('<h3>Contents</h3><div id="toc-hack"><ul/></div>');
 var page_toc = [];
-$("img.inheritance").width(580);
-$("tt.descname").each(
-    function(i){
-        var t=$(this);
-        var module  = t.closest("div[id^=module]")
-                        .attr("id")
-                        .replace(/^module-/,'');
-        var id      = t.closest("dt")
-                        .attr("id");
-        var myname  = id.replace(module + '.', '');
-        var myclass = t.closest("dl").attr("class");
-        var entry   = '<li class="' + myclass + '">' 
-                        + '<a href="#' + id +'">' + myname  + '</a></li>'
-        // $("#toc-hack > ul").append(entry);
-        page_toc.push([myclass, id, myname]);
-        if (0 == t.prevAll().length)
-            t.before('<tt class="descclassname">' + 
-                        myname.replace(t.text(),'') + '</tt>');
-    }
-)
-console.log("content script: " + page_toc.length);
-chrome.extension.sendRequest({'data': page_toc}, function(response){
-    console.log("got response: ");
-});
+var context_stack = [page_toc];
+var moduleName;
 
-console.log("content script.");
-chrome.extension.onRequest.addListener(
-    function onExtRequest(request, sender, sendResponse) {
-        console.log(request);
-        if (request.action == "navigate") {
-            location.hash = "#" + request.id;
-            sendResponse([]);
+function doModule(i) {
+    moduleName = this.id.replace(/^module-/,''); 
+    var entry = {'what':'module','id':this.id,'name':moduleName};
+    addItem(entry);
+}
+function addItem(toc_entry) {
+    toc_entry.contents = [];
+    context_stack[0].push(toc_entry);
+    context_stack.unshift(toc_entry.contents);
+    doContents(toc_entry.name);
+    context_stack.shift();
+}
+function doContents(name) {
+    var num_parts = name.split('.').length;
+    $('dt[id^=' + name + '.]').each(function(i) {
+        var name = this.id;
+        if (name.split('.').length != num_parts + 1)
+            return;
+        var what = this.parentNode.className;
+        var entry = {'what':what,'id':name,'name':name};
+        addItem(entry);
+    });
+}
+
+if ($(".sphinxsidebarwrapper").length) {
+    $("body").append('<div id="placemark-hack"/>');
+    $(document).scroll(function() {
+        var cutoff = $(window).scrollTop() + 20;
+        var name = $("dl").binsearch(cutoff, compare).find("dt").attr("id");
+        if (name)
+            $("#placemark-hack").text(name);
+    });
+
+    $("img.inheritance").width(580);
+
+    $("div.section[id^=module]").each(doModule);
+    chrome.extension.sendRequest({'toc': page_toc});
+    chrome.extension.onRequest.addListener(
+        function onExtRequest(request, sender, sendResponse) {
+            if (request.action == "navigate") {
+                location.hash = "#" + request.id;
+                sendResponse([]);
+            }
         }
-    }
-);
+    );
+}

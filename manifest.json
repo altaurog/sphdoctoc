@@ -5,11 +5,16 @@
   "icons": { "16": "toc.png" },
   "content_scripts": [
     {
-        "matches":["http://matplotlib.sourceforge.net/*"],
-        "js": ["lib/jquery.js", "toc.js"]
+        "matches":["http://matplotlib.sourceforge.net/*","http://docs.python.org/*"],
+        "js": ["lib/jquery.js", "toc.js"],
+        "css": ["toc.css"]
     }
   ],
-  "permissions":["tabs","http://matplotlib.sourceforge.net/*"],
+  "permissions":["tabs",
+                "http://matplotlib.sourceforge.net/*",
+                "http://docs.python.org/*",
+                "http://localhost:8654/"
+                ],
   "background_page":"bg.html",
   "page_action": {
     "default_icon": "toc.png",
