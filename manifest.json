@@ -2,7 +2,7 @@
   "name": "sphdoctoc",
   "version": "0.1",
   "description": "Page TOC for sphinx-generated documentation",
-  "icons": { "16": "toc.jpg" },
+  "icons": { "16": "toc.png" },
   "content_scripts": [
     {
         "matches":["http://matplotlib.sourceforge.net/*"],
