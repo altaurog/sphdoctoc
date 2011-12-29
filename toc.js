@@ -84,6 +84,5 @@ chrome.extension.onRequest.addListener(
             location.hash = "#" + request.id;
             sendResponse([]);
         }
-        alert(request);
     }
 );
