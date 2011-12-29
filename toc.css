@@ -11,8 +11,5 @@
     font-weight:bold;
     font-size:8pt;
     height:2em;
-}
-
-#placemark-hack:hover {
-    display:none;
+    cursor:default;
 }

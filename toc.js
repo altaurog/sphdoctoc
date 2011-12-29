@@ -75,7 +75,6 @@ if ($(".sphinxsidebarwrapper").length) {
     }
     if (page_toc.length)
         chrome.extension.sendRequest({'activate': true});
-    // console.log(JSON.stringify({'toc': page_toc}));
     chrome.extension.onRequest.addListener(
         function onExtRequest(request, sender, sendResponse) {
             if (request.action == "get_toc") {
@@ -87,4 +86,5 @@ if ($(".sphinxsidebarwrapper").length) {
             }
         }
     );
+    $("#placemark-hack").hover(function(){$(this).fadeOut(250);}, function(){$(this).fadeIn(500);});
 }
