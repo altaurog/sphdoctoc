@@ -23,9 +23,11 @@ function click() {
     return false;
 }
 $(function() {
-    chrome.extension.sendRequest({'action':'get_toc'},
-        function(response) {makeMenu(response);}
-    );
+    chrome.tabs.getSelected(null, function(tab) {
+        chrome.extension.sendRequest({'tabId':tab.id, 'action':'get_toc'},
+            function(response) {makeMenu(response);}
+        );
+    });
     $('a').live('click', click);
 });
 </script>

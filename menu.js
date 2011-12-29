@@ -1,5 +1,4 @@
-function makeMenu(response) {
-    var toc = response.toc;
+function makeMenu(toc) {
     var output = $('ul#menu');
     if (toc.length == 1)
         toc = toc[0].contents;

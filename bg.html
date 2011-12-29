@@ -10,9 +10,8 @@
         var ext = {};
       function onRequest(request, sender, sendResponse) {
           if (sender.tab && request.toc) {
-              ext.toc = request.toc;
-              ext.tab = sender.tab;
-              if (ext.toc.length > 0) {
+              ext[sender.tab.id] = request.toc;
+              if (request.toc.length > 0) {
                   chrome.pageAction.show(sender.tab.id);
               }
               else
@@ -20,7 +19,7 @@
               sendResponse({});
           }
           if (!sender.tab && request.action == "get_toc") {
-              sendResponse(ext);
+              sendResponse(ext[request.tabId]);
           }
       };
 
