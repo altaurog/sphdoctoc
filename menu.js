@@ -1,6 +1,6 @@
 function makeMenu(toc) {
     var output = $('ul#menu');
-    if (toc.length == 1)
+    while (toc.length == 1)
         toc = toc[0].contents;
     for (var i = 0; i < toc.length; i++)
         moduleList(output, toc[i]);
