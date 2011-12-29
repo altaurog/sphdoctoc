@@ -6,7 +6,7 @@
   "content_scripts": [
     {
         "matches":["http://matplotlib.sourceforge.net/*"],
-        "js": ["jquery-1.7.1.min.js", "toc.js"]
+        "js": ["lib/jquery.js", "toc.js"]
     }
   ],
   "permissions":["tabs","http://matplotlib.sourceforge.net/*"],

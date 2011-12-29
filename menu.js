@@ -24,7 +24,7 @@ function makeMenu(response) {
     var topcontent = contextstack[contextstack.length - 1].content;
     for (var i = 0; i < topcontent.length; i++)
         moduleList(output, topcontent[i]);
-    output.treeview({persist:'location',collapsed:true,unique:true});
+    output.treeview({persist:'cookie',collapsed:true,unique:false,animated:'fast',control:'#treecontrol'});
 }
 
 function moduleList(elem, context) {

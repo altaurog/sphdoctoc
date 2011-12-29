@@ -7,6 +7,17 @@ body {
 	font-family: verdana, helvetica, arial, sans-serif;
     min-width:260px;
     overflow-x:hidden;
+    padding-top:21px;
+}
+
+#treecontrol {
+    position:fixed;
+    top:0; left:0;
+    background:#eee;
+    border-bottom:1px solid #aaa;
+    width:100%;
+    margin:0;
+    padding:7px;
 }
 
 a {
