@@ -27,7 +27,7 @@ function compare(jqe, target) {
 }
 
 var page_toc = [];
-var context_stack = [page_toc];
+var names_dict = {'':page_toc};
 var moduleName;
 
 function doModule(i) {
@@ -35,23 +35,22 @@ function doModule(i) {
     var entry = {'what':'module','id':this.id,'name':moduleName};
     addItem(entry);
 }
-function addItem(toc_entry) {
-    toc_entry.contents = [];
-    context_stack[0].push(toc_entry);
-    context_stack.unshift(toc_entry.contents);
-    doContents(toc_entry.name);
-    context_stack.shift();
+function parentName(name) {
+    var parts = name.split('.');
+    return parts.slice(0, parts.length - 1).join('.');
 }
-function doContents(name) {
-    var num_parts = name.split('.').length;
-    $('dt[id^=' + name + '.]').each(function(i) {
-        var name = this.id;
-        if (name.split('.').length != num_parts + 1)
-            return;
-        var what = this.parentNode.className;
-        var entry = {'what':what,'id':name,'name':name};
-        addItem(entry);
-    });
+function addItem(toc_entry) {
+    names_dict[toc_entry.name] = toc_entry.contents = [];
+    var p = parentName(toc_entry.name);
+    if (!names_dict[p])
+        addItem({'what':'', 'id':'', 'name':p});
+    names_dict[p].push(toc_entry);
+}
+function doContents(i) {
+    var name = this.id;
+    var what = this.parentNode.className;
+    var entry = {'what':what,'id':name,'name':name};
+    addItem(entry);
 }
 
 if ($(".sphinxsidebarwrapper").length) {
@@ -66,7 +65,16 @@ if ($(".sphinxsidebarwrapper").length) {
     $("img.inheritance").width(580);
 
     $("div.section[id^=module]").each(doModule);
+    $("dt[id]").each(doContents);
+    names_dict = {};
+    var len = page_toc.length
+    for (var i = 0; i < len; i++) {
+        var item = page_toc.shift();
+        if (item.what != 'module' || item.contents.length > 0)
+            page_toc.push(item);
+    }
     chrome.extension.sendRequest({'toc': page_toc});
+    console.log(JSON.stringify({'toc': page_toc}));
     chrome.extension.onRequest.addListener(
         function onExtRequest(request, sender, sendResponse) {
             if (request.action == "navigate") {

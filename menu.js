@@ -13,7 +13,9 @@ function moduleList(elem, context) {
     var name = parts.slice(parts.length - 2).join('.');
     if (context.what.match(/method|function/))
         name += '()';
-    var title = context.name + ' (' + context.what + ')';
+    var title = context.name;
+    if (context.what)
+        title += ' (' + context.what + ')';
     var li = $('<li><a class="' + context.what + '" href="#" '
             + 'title="' + title + '" '
             + 'id="' + context.id + '">' + name + '</a></li>');
