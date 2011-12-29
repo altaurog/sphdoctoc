@@ -1,7 +1,7 @@
 {
-  "name": "sphdoctoc",
+  "name": "mpldoctoc",
   "version": "0.1",
-  "description": "Page TOC for sphinx-generated documentation",
+  "description": "Navigation TOC tree for matplotlib api documentation",
   "icons": { "16": "toc.png" },
   "content_scripts": [
     {
@@ -9,7 +9,7 @@
         "js": ["jquery-1.7.1.min.js", "toc.js"]
     }
   ],
-  "permissions":["tabs","http://*"],
+  "permissions":["tabs","http://matplotlib.sourceforge.net/*"],
   "background_page":"bg.html",
   "page_action": {
     "default_icon": "toc.png",
