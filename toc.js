@@ -73,11 +73,15 @@ if ($(".sphinxsidebarwrapper").length) {
         if (item.what != 'module' || item.contents.length > 0)
             page_toc.push(item);
     }
-    chrome.extension.sendRequest({'toc': page_toc});
-    console.log(JSON.stringify({'toc': page_toc}));
+    if (page_toc.length)
+        chrome.extension.sendRequest({'activate': true});
+    // console.log(JSON.stringify({'toc': page_toc}));
     chrome.extension.onRequest.addListener(
         function onExtRequest(request, sender, sendResponse) {
-            if (request.action == "navigate") {
+            if (request.action == "get_toc") {
+                sendResponse(page_toc);
+            }
+            else if (request.action == "navigate") {
                 location.hash = "#" + request.id;
                 sendResponse([]);
             }
