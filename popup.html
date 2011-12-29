@@ -1,21 +1,33 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="popup.css">
+    </head>
+<body>
 <ul>
+</ul>
+<script src="jquery-1.7.1.min.js"></script>
 <script>
-function click(entry) {
+function click() {
+    var nav = $(this).closest('li').attr('id');
     chrome.tabs.getSelected(null, function(tab) {
-        chrome.tabs.sendRequest(tab.id, {action:'navigate', id:entry});
+        chrome.tabs.sendRequest(tab.id, {action:'navigate', id:nav});
         window.close();
     });
+    return false;
 }
-chrome.extension.sendRequest({'action':'get_toc'},
-    function(response) {
-        var data = response.data;
-        for (i=0; i < data.length; i++) {
-            var rec = data[i];
-            var entry   = '<li class="' + rec[0] + '">'
-                            + '<a onclick="click(\'' + rec[1] + '\')" ' 
-                            + 'href="' + rec[1] +'">' + rec[2]  + '</a></li>';
-            document.write(entry);
-        }
-    });
+$(function() {
+    chrome.extension.sendRequest({'action':'get_toc'},
+        function(response) {
+            var data = response.data;
+            for (i=0; i < data.length; i++) {
+                var rec = data[i];
+                var entry   = '<li class="' + rec[0] + '" id="' + rec[1] +'">'
+                            + '<a href="#">' + rec[2]  + '</a></li>';
+                $(entry).appendTo('ul');
+            }
+        });
+    $('a').live('click', click);
+});
 </script>
-</ul>
+</body>
+</html>
