@@ -2,7 +2,7 @@
   "name": "sphdoctoc",
   "version": "0.1",
   "description": "Navigation TOC tree for sphinx-generated api documentation",
-  "icons": { "16": "toc.png" },
+  "icons": { "16": "toc.png" , "48":"icon48.png", "128":"icon128.png"},
   "content_scripts": [
     {
         "matches":["http://matplotlib.sourceforge.net/*","http://docs.python.org/*"],
