@@ -1,13 +1,13 @@
-function makeMenu(toc) {
+function makeTree(toc) {
     var output = $('ul#menu');
     while (toc.length == 1)
         toc = toc[0].contents;
     for (var i = 0; i < toc.length; i++)
-        moduleList(output, toc[i]);
+        treeInsert(output, toc[i]);
     output.treeview({persist:'cookie',collapsed:true,unique:false,animated:'fast',control:'#treecontrol'});
 }
 
-function moduleList(elem, context) {
+function treeInsert(elem, context) {
     var parts = context.name.split('.');
     var name = parts.slice(parts.length - 2).join('.');
     if (context.what.match(/method|function/))
@@ -22,6 +22,46 @@ function moduleList(elem, context) {
     if (context.contents.length > 0) {
         var sublist = $('<ul>').appendTo(li);
         for (var i = 0; i < context.contents.length; i++)
-            moduleList(sublist, context.contents[i]);
+            treeInsert(sublist, context.contents[i]);
     }
 }
+
+function modulesMenu(modules) {
+    console.log(modules);
+    if (!modules)
+        return;
+    var dropDown = $('<select id="modules-index"><option>Modules</option></select>'
+                    ).appendTo("#treecontrol");
+    for (var i = 0; i < modules.length; i++) {
+        var m = modules[i];
+        dropDown.append('<option value="' + m[1] + '">' + m[0] + '</option>');
+    }
+    dropDown.change(function(e) {
+        var url = $(this).val();
+        chrome.tabs.getSelected(null, function(tab) {
+            chrome.tabs.sendRequest(tab.id, {'action':'navigate', 'url':url});
+            window.close();
+        });
+    });
+}
+
+function click() {
+    var nav = this.id;
+    chrome.tabs.getSelected(null, function(tab) {
+        chrome.tabs.sendRequest(tab.id, {action:'navigate', id:nav});
+        window.close();
+    });
+    return false;
+}
+
+$(function() {
+    chrome.tabs.getSelected(null, function(tab) {
+        chrome.tabs.sendRequest(tab.id, {'action':'get_toc'},
+            function(response) {
+                makeTree(response.toc);
+                modulesMenu(response.modules);
+            }
+        );
+    });
+    $('a').live('click', click);
+});

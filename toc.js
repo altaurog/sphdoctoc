@@ -29,19 +29,20 @@ function compare(jqe, target) {
 var page_toc = [];
 var names_dict = {'':page_toc};
 var moduleName;
+var modules = {'index':[]};
 
 function doModule(i) {
     moduleName = this.id.replace(/^module-/,''); 
     var entry = {'what':'module','id':this.id,'name':moduleName};
     addItem(entry);
 }
-function parentName(name) {
-    var parts = name.split('.');
-    return parts.slice(0, parts.length - 1).join('.');
+function parentName(name, delim) {
+    var parts = name.split(delim);
+    return parts.slice(0, parts.length - 1).join(delim);
 }
 function addItem(toc_entry) {
     names_dict[toc_entry.name] = toc_entry.contents = [];
-    var p = parentName(toc_entry.name);
+    var p = parentName(toc_entry.name, '.');
     if (!names_dict[p])
         addItem({'what':'', 'id':'', 'name':p});
     names_dict[p].push(toc_entry);
@@ -73,18 +74,39 @@ if ($(".sphinxsidebarwrapper").length) {
         if (item.what != 'module' || item.contents.length > 0)
             page_toc.push(item);
     }
-    if (page_toc.length)
-        chrome.extension.sendRequest({'activate': true});
+
+    var modulesLinks = $('a:contains(modules)');
+    if (modulesLinks.length > 1) {
+        modules.url = modulesLinks[0].href;
+        var tail = parentName(location.pathname, '/').length;
+        var mbase = parentName(modules.url, '/');
+        function fixurl(url) { return mbase + url.slice(tail); }
+        $.get(modules.url, function success(data) {
+            $(data.replace(/<img/g,'<span')).find('a[href]>tt.xref').each(function() {
+                var p = this.parentNode;
+                modules.index.push([p.text, fixurl(p.pathname)]);
+            })
+        });
+    }
+
     chrome.extension.onRequest.addListener(
         function onExtRequest(request, sender, sendResponse) {
             if (request.action == "get_toc") {
-                sendResponse(page_toc);
+                sendResponse({'toc':page_toc, 'modules':modules.index});
             }
             else if (request.action == "navigate") {
-                location.hash = "#" + request.id;
                 sendResponse([]);
+                if (request.id)
+                    location.hash = "#" + request.id;
+                if (request.url)
+                    location.href = request.url;
             }
         }
     );
+
+    if (page_toc.length) {
+        chrome.extension.sendRequest({'action':'activate'});
+    }
+
     $("#placemark-hack").hover(function(){$(this).fadeOut(250);}, function(){$(this).fadeIn(500);});
 }

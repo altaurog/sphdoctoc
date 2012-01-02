@@ -13,23 +13,5 @@
 <script src="lib/jquery.cookie.js"></script>
 <script src="jquery.treeview.js"></script>
 <script src="menu.js"></script>
-<script>
-function click() {
-    var nav = this.id;
-    chrome.tabs.getSelected(null, function(tab) {
-        chrome.tabs.sendRequest(tab.id, {action:'navigate', id:nav});
-        window.close();
-    });
-    return false;
-}
-$(function() {
-    chrome.tabs.getSelected(null, function(tab) {
-        chrome.tabs.sendRequest(tab.id, {'action':'get_toc'},
-            function(response) {makeMenu(response);}
-        );
-    });
-    $('a').live('click', click);
-});
-</script>
 </body>
 </html>
