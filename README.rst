@@ -29,6 +29,8 @@ Version History
 :29 Dec 2011:
    Version 1.0, initial release
 
+:2 Jan 2012:
+   Version 1.1, added module index drop-down
 
 License
 ---------
