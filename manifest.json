@@ -1,13 +1,17 @@
 {
   "name": "sphdoctoc",
-  "version": "1.1",
+  "version": "1.2",
   "description": "Navigation TOC tree for sphinx-generated api documentation",
   "icons": { "16": "toc.png" , "48":"icon48.png", "128":"icon128.png"},
   "content_scripts": [
     {
         "matches":["http://matplotlib.sourceforge.net/*",
-                    "http://docs.fabfile.org/*",
+                    "http://matplotlib.org/*",
+                    "https://*.readthedocs.org/*",
+                    "https://readthedocs.org/*",
+                    "http://*.readthedocs.org/*",
                     "http://readthedocs.org/*",
+                    "http://docs.fabfile.org/*",
                     "http://docs.python.org/*"],
         "js": ["lib/jquery.js", "toc.js"],
         "css": ["toc.css"]
@@ -15,9 +19,14 @@
   ],
   "permissions":["tabs",
                 "http://matplotlib.sourceforge.net/*",
-                "http://docs.fabfile.org/*",
+                "http://matplotlib.org/*",
+                "https://*.readthedocs.org/*",
+                "https://readthedocs.org/*",
+                "http://*.readthedocs.org/*",
                 "http://readthedocs.org/*",
-                "http://docs.python.org/*"],
+                "http://docs.fabfile.org/*",
+                "http://docs.python.org/*"
+                ],
   "background_page":"bg.html",
   "page_action": {
     "default_icon": "toc.png",

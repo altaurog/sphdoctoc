@@ -12,10 +12,13 @@ getting around the docs a whole lot easier.
 
 Scope
 ------
-sphdoctoc is enabled only for the online `matplotlib api docs`_ and for the `python docs`_.
+sphdoctoc is now enabled for the online `matplotlib api docs`_ the `python docs`_,
+the fabric_ docs, and documentation hosted at `Read the Docs`_.
 
-.. _matplotlib api docs: http://matplotlib.sourceforge.net/api/
+.. _matplotlib api docs: http://matplotlib.org/api/
 .. _python docs: http://docs.python.org/
+.. _fabric: http://docs.fabfile.org/
+.. _Read the Docs: https://readthedocs.org
 
 Installation
 ----------------
@@ -31,6 +34,9 @@ Version History
 
 :2 Jan 2012:
    Version 1.1, added module index drop-down
+
+:15 Jan 2013:
+    Version 1.2, extended permissions to more domains
 
 License
 ---------
