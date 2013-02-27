@@ -1,6 +1,7 @@
 {
   "name": "sphdoctoc",
-  "version": "1.2",
+  "version": "1.3",
+  "manifest_version": 2,
   "description": "Navigation TOC tree for sphinx-generated api documentation",
   "icons": { "16": "toc.png" , "48":"icon48.png", "128":"icon128.png"},
   "content_scripts": [
@@ -27,7 +28,9 @@
                 "http://docs.fabfile.org/*",
                 "http://docs.python.org/*"
                 ],
-  "background_page":"bg.html",
+  "background": {
+      "scripts": ["bg.js"]
+  },
   "page_action": {
     "default_icon": "toc.png",
     "default_title": "TOC",

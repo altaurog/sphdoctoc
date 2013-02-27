@@ -38,6 +38,9 @@ Version History
 :15 Jan 2013:
     Version 1.2, extended permissions to more domains
 
+:27 Feb 2013:
+    Version 1.3, update chrome manifest to version 2
+
 License
 ---------
 | Copyright (c) 2011, Aryeh Leib Taurog.
