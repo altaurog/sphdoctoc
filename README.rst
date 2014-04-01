@@ -20,6 +20,8 @@ the fabric_ docs, and documentation hosted at `Read the Docs`_.
 .. _fabric: http://docs.fabfile.org/
 .. _Read the Docs: https://readthedocs.org
 
+Please open an issue if there are other sites you'd like included.
+
 Installation
 ----------------
 To install, just click here_.  Make sure you are using Google Chrome.
@@ -40,6 +42,9 @@ Version History
 
 :27 Feb 2013:
     Version 1.3, update chrome manifest to version 2
+
+:1 Apr 2014:
+    Version 1.4, allow https on all permitted sites
 
 License
 ---------
