@@ -8,11 +8,14 @@
     {
         "matches":["http://matplotlib.sourceforge.net/*",
                     "http://matplotlib.org/*",
+                    "https://matplotlib.org/*",
                     "https://*.readthedocs.org/*",
                     "https://readthedocs.org/*",
                     "http://*.readthedocs.org/*",
                     "http://readthedocs.org/*",
+                    "https://docs.fabfile.org/*",
                     "http://docs.fabfile.org/*",
+                    "https://docs.python.org/*",
                     "http://docs.python.org/*"],
         "js": ["lib/jquery.js", "toc.js"],
         "css": ["toc.css"]
@@ -21,11 +24,14 @@
   "permissions":["tabs",
                 "http://matplotlib.sourceforge.net/*",
                 "http://matplotlib.org/*",
+                "https://matplotlib.org/*",
                 "https://*.readthedocs.org/*",
                 "https://readthedocs.org/*",
                 "http://*.readthedocs.org/*",
                 "http://readthedocs.org/*",
                 "http://docs.fabfile.org/*",
+                "https://docs.fabfile.org/*",
+                "https://docs.python.org/*",
                 "http://docs.python.org/*"
                 ],
   "background": {
