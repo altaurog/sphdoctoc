@@ -82,7 +82,7 @@ if ($(".sphinxsidebarwrapper").length) {
         var mbase = parentName(modules.url, '/');
         function fixurl(url) { return mbase + url.slice(tail); }
         $.get(modules.url, function success(data) {
-            $(data.replace(/<img/g,'<span')).find('a[href]>tt.xref').each(function() {
+            $(data.replace(/<img/g,'<span')).find('a[href] > code.xref').each(function() {
                 var p = this.parentNode;
                 modules.index.push([p.text, fixurl(p.pathname)]);
             })

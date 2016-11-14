@@ -47,7 +47,10 @@ Version History
     Version 1.4, allow https on all permitted sites
 
 :14 Nov 2016:
-    Version 1.5, move from readthedocs.org to readthedocs.io
+    Version 1.5
+
+    * move from readthedocs.org to readthedocs.io
+    * fix "Modules" drop-down menu
 
 License
 ---------
