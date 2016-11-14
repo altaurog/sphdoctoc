@@ -54,7 +54,7 @@ function doContents(i) {
     addItem(entry);
 }
 
-if ($(".sphinxsidebarwrapper").length) {
+if ($("div.section > dl > dt[id] > code.descname").length) {
     $("body").append('<div id="placemark-hack"/>');
     $(document).scroll(function() {
         var cutoff = $(window).scrollTop() + 20;

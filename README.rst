@@ -12,12 +12,13 @@ getting around the docs a whole lot easier.
 
 Scope
 ------
-sphdoctoc is now enabled for the online `matplotlib api docs`_ the `python docs`_,
-the fabric_ docs, and documentation hosted at `Read the Docs`_.
+sphdoctoc is now enabled for the online `Matplotlib api docs`_ the `Python docs`_,
+the fabric_ docs, the Sqlalchemy_ docs and documentation hosted at `Read the Docs`_.
 
-.. _matplotlib api docs: http://matplotlib.org/api/
-.. _python docs: http://docs.python.org/
+.. _Matplotlib api docs: http://matplotlib.org/api/
+.. _Python docs: http://docs.python.org/
 .. _fabric: http://docs.fabfile.org/
+.. _Sqlalchemy: http://docs.sqlalchemy.org/
 .. _Read the Docs: https://readthedocs.io
 
 Please open an issue if there are other sites you'd like included.
@@ -52,6 +53,7 @@ Version History
     * move from readthedocs.org to readthedocs.io
     * fix "Modules" drop-down menu
     * hide "Modules" drop-down if no index available
+    * enable for docs.sqlalchemy.org
 
 License
 ---------
