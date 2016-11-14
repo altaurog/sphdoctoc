@@ -18,7 +18,7 @@ the fabric_ docs, and documentation hosted at `Read the Docs`_.
 .. _matplotlib api docs: http://matplotlib.org/api/
 .. _python docs: http://docs.python.org/
 .. _fabric: http://docs.fabfile.org/
-.. _Read the Docs: https://readthedocs.org
+.. _Read the Docs: https://readthedocs.io
 
 Please open an issue if there are other sites you'd like included.
 
@@ -46,9 +46,12 @@ Version History
 :1 Apr 2014:
     Version 1.4, allow https on all permitted sites
 
+:14 Nov 2016:
+    Version 1.5, move from readthedocs.org to readthedocs.io
+
 License
 ---------
-| Copyright (c) 2011, Aryeh Leib Taurog.
+| Copyright (c) 2011 - 2016, Aryeh Leib Taurog.
 | All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
