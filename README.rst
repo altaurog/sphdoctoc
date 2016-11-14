@@ -51,6 +51,7 @@ Version History
 
     * move from readthedocs.org to readthedocs.io
     * fix "Modules" drop-down menu
+    * hide "Modules" drop-down if no index available
 
 License
 ---------

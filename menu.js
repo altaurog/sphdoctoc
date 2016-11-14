@@ -28,7 +28,7 @@ function treeInsert(elem, context) {
 
 function modulesMenu(modules) {
     console.log(modules);
-    if (!modules)
+    if (modules.length < 1)
         return;
     var dropDown = $('<select id="modules-index"><option>Modules</option></select>'
                     ).appendTo("#treecontrol");
