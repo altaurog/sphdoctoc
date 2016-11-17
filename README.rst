@@ -57,6 +57,10 @@ Version History
     * hide "Modules" drop-down if no index available
     * enable for docs.sqlalchemy.org
 
+:18 Nov 2016:
+    Version 1.6, adjustable font size
+
+
 License
 ---------
 | Copyright (c) 2011 - 2016, Aryeh Leib Taurog.

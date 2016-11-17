@@ -1,6 +1,6 @@
 {
   "name": "sphdoctoc",
-  "version": "1.5",
+  "version": "1.6",
   "manifest_version": 2,
   "description": "Navigation TOC tree for sphinx-generated api documentation",
   "icons": { "16": "toc.png" , "48":"icon48.png", "128":"icon128.png"},
