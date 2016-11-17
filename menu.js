@@ -71,6 +71,10 @@ function getSize() {
 function setSize(size) {
     document.body.style.fontSize = size + 'pt';
     $("button#smaller").get(0).disabled = (size < 8);
+    window.setTimeout(function() {
+        height = $("div#header").height() + 10;
+        $("body").css("padding-top", height + 'px');
+    }, 100);
 }
 
 function loadSize(cb) {
