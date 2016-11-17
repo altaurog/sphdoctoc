@@ -1,15 +1,18 @@
 html>body {
-	font-size: 64.45%;
 }
 
 body {
 	font-family: verdana, helvetica, arial, sans-serif;
-    min-width:260px;
+    min-width:24em;
     overflow-x:hidden;
-    padding-top:35;
+    padding-top:6.5em;
 }
 
-#treecontrol {
+div {
+    box-sizing: border-box;
+}
+
+#header {
     position:fixed;
     top:0; left:0;
     background:#eee;
@@ -21,7 +24,11 @@ body {
 
 #copyright {
     margin: -6px 0 10px;
-    font-size: 90%;
+    font-size: 9px;
+}
+
+button {
+    float: right;
 }
 
 a {
@@ -31,7 +38,5 @@ a {
 }
 
 select {
-    width:120px;
-    margin:0 5px 0 25px;
     font-size:inherit;
 }

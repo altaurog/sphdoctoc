@@ -4,13 +4,19 @@
         <link rel="stylesheet" href="popup.css">
     </head>
 <body>
-    <div id="treecontrol">
+    <div id="header">
         <div id="copyright">
             <a href="https://github.com/altaurog/sphdoctoc">sphdoctoc</a>
             &copy; 2011-2016 Aryeh Leib Taurog
         </div>
-        <a href="#">Collapse</a>
-        <a href="#">Expand</a>
+        <div id="modules">
+            <button id="bigger">+</button>
+            <button id="smaller">-</button>
+        </div>
+        <div id="treecontrol">
+            <a href="#">Collapse</a>
+            <a href="#">Expand</a>
+        </div>
     </div>
     <ul id="menu"></ul>
 <script src="lib/jquery.js"></script>

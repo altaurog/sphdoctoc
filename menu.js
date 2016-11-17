@@ -31,7 +31,7 @@ function modulesMenu(modules) {
     if (modules.length < 1)
         return;
     var dropDown = $('<select id="modules-index"><option>Modules</option></select>'
-                    ).appendTo("#treecontrol");
+                    ).prependTo("#modules");
     for (var i = 0; i < modules.length; i++) {
         var m = modules[i];
         dropDown.append('<option value="' + m[1] + '">' + m[0] + '</option>');
@@ -54,6 +54,14 @@ function click() {
     return false;
 }
 
+function adjustSize() {
+    currentSize = +document.body.style.fontSize.replace(/pt$/, '');
+    adjustment = 'bigger' == this.id ? +1 : -1;
+    newSize = currentSize + adjustment;
+    $("button#smaller").get(0).disabled = (newSize < 8);
+    document.body.style.fontSize = newSize + 'pt';
+}
+
 $(function() {
     chrome.tabs.getSelected(null, function(tab) {
         chrome.tabs.sendRequest(tab.id, {'action':'get_toc'},
@@ -64,4 +72,6 @@ $(function() {
         );
     });
     $('a').live('click', click);
+    $('button').live('click', adjustSize);
+    document.body.style.fontSize = '10pt';
 });
