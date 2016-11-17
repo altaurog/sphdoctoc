@@ -36,27 +36,22 @@ function modulesMenu(modules) {
         dropDown.append('<option value="' + m[1] + '">' + m[0] + '</option>');
     }
     dropDown.change(function(e) {
-        var url = $(this).val();
-        chrome.tabs.getSelected(null, function(tab) {
-            chrome.tabs.sendRequest(tab.id, {'action':'navigate', 'url':url});
-            window.close();
-        });
+        navigate({url: $(this).val()});
     });
 }
 
 function click() {
-    var nav = this.id;
-    chrome.tabs.getSelected(null, function(tab) {
-        chrome.tabs.sendRequest(tab.id, {action:'navigate', id:nav});
-        window.close();
-    });
-    return false;
+    navigate({id: this.id});
 }
 
 function about() {
-    var url = this.href;
+    navigate({url: this.href});
+}
+
+function navigate(message) {
+    message.action = 'navigate';
     chrome.tabs.getSelected(null, function(tab) {
-        chrome.tabs.sendRequest(tab.id, {'action':'navigate', 'url': url});
+        chrome.tabs.sendRequest(tab.id, message);
         window.close();
     });
 }
