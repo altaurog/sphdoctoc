@@ -90,7 +90,7 @@ $(function() {
             }
         );
     });
-    $('a').live('click', click);
-    $('button').live('click', adjustSize);
+    $('ul#menu').delegate('a', 'click', click);
+    $('div#header').delegate('button', 'click', adjustSize);
     loadSize(setSize);
 });
