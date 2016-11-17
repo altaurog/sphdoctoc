@@ -58,7 +58,6 @@ function adjustSize() {
     currentSize = getSize();
     adjustment = 'bigger' == this.id ? +1 : -1;
     newSize = currentSize + adjustment;
-    $("button#smaller").get(0).disabled = (newSize < 8);
     setSize(newSize);
     saveSize(newSize);
 }
@@ -69,6 +68,7 @@ function getSize() {
 
 function setSize(size) {
     document.body.style.fontSize = size + 'pt';
+    $("button#smaller").get(0).disabled = (size < 8);
 }
 
 function loadSize(cb) {
