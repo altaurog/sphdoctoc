@@ -3,7 +3,7 @@ html>body {
 
 body {
 	font-family: verdana, helvetica, arial, sans-serif;
-    min-width:24em;
+    min-width:26em;
     overflow-x:hidden;
     padding-top:6.5em;
 }
@@ -27,8 +27,15 @@ div {
     font-size: 9px;
 }
 
+#modules select {
+    font-size: 10pt;
+    max-width: 13em;
+}
+
 button {
     float: right;
+    width: 1.7em;
+    margin-left: 6px;
 }
 
 a {
