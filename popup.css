@@ -1,11 +1,8 @@
-html>body {
-}
-
 body {
 	font-family: verdana, helvetica, arial, sans-serif;
-    min-width:26em;
+    min-width:28em;
     overflow-x:hidden;
-    padding-top:6.5em;
+    margin: 0 0 18px 0;
 }
 
 div {
@@ -13,17 +10,20 @@ div {
 }
 
 #header {
-    position:fixed;
-    top:0; left:0;
     background:#eee;
     border-bottom:1px solid #aaa;
-    width:100%;
-    margin:0;
     padding:7px;
+    margin-bottom:2px;
 }
 
 #copyright {
-    margin: -6px 0 10px;
+    background:#eee;
+    border-top:1px solid #aaa;
+    position:fixed;
+    bottom:0;
+    left:0;
+    padding:2px 7px;
+    width:100%;
     font-size: 9px;
 }
 
