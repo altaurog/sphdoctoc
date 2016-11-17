@@ -53,6 +53,14 @@ function click() {
     return false;
 }
 
+function about() {
+    var url = this.href;
+    chrome.tabs.getSelected(null, function(tab) {
+        chrome.tabs.sendRequest(tab.id, {'action':'navigate', 'url': url});
+        window.close();
+    });
+}
+
 function adjustSize() {
     currentSize = getSize();
     adjustment = 'bigger' == this.id ? +1 : -1;
@@ -92,5 +100,6 @@ $(function() {
     });
     $('ul#menu').delegate('a', 'click', click);
     $('div#header').delegate('button', 'click', adjustSize);
+    $("div#copyright a").click(about);
     loadSize(setSize);
 });
