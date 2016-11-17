@@ -24,6 +24,7 @@
     }
   ],
   "permissions":["tabs",
+                "storage",
                 "http://matplotlib.sourceforge.net/*",
                 "http://matplotlib.org/*",
                 "https://matplotlib.org/*",

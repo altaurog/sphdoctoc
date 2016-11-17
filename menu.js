@@ -55,11 +55,31 @@ function click() {
 }
 
 function adjustSize() {
-    currentSize = +document.body.style.fontSize.replace(/pt$/, '');
+    currentSize = getSize();
     adjustment = 'bigger' == this.id ? +1 : -1;
     newSize = currentSize + adjustment;
     $("button#smaller").get(0).disabled = (newSize < 8);
-    document.body.style.fontSize = newSize + 'pt';
+    setSize(newSize);
+    saveSize(newSize);
+}
+
+function getSize() {
+    return +document.body.style.fontSize.replace(/pt$/, '');
+}
+
+function setSize(size) {
+    document.body.style.fontSize = size + 'pt';
+}
+
+function loadSize(cb) {
+    chrome.storage.sync.get(
+            {'fontsize': 10},
+            function(data) { cb(data.fontsize); }
+        );
+}
+
+function saveSize(size) {
+    chrome.storage.sync.set({'fontsize': size});
 }
 
 $(function() {
@@ -73,5 +93,5 @@ $(function() {
     });
     $('a').live('click', click);
     $('button').live('click', adjustSize);
-    document.body.style.fontSize = '10pt';
+    loadSize(setSize);
 });
